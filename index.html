@@ -476,6 +476,9 @@ const videos = [
 ];
 
 // ── TOP CAROUSEL ───────────────────────────────────────────
+requestAnimationFrame(function() { window.scrollTo(0,0); });
+setTimeout(function() { window.scrollTo(0,0); }, 100);
+setTimeout(function() { window.scrollTo(0,0); }, 500);
 (function(){
   const track = document.getElementById('topTrack');
   const dotsEl = document.getElementById('topDots');
@@ -608,6 +611,8 @@ document.getElementById('videoLightbox').addEventListener('click', function(e){ 
 // ── NAV + SCROLL REVEAL ────────────────────────────────────
 if (history.scrollRestoration) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
 
 var nav = document.getElementById('nav');
 window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY>60); });
