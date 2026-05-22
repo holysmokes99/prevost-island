@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prevost Island - Farm Stewards Wanted</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --stone:     #fffbf0;
+      --parchment: #faecd0;
+      --earth:     #8a6a32;
+      --moss:      #7a9e5f;
+      --deep:      #3d3018;
+      --fog:       #c8b484;
+      --ink:       #2e2008;
+      --gold:      #d4a843;
+      --amber:     #e8c06a;
+      --orange:    #c4622d;
+      --brick:     #c4622d;
+      --driftwood: #a07840;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--stone); color: var(--ink); font-weight: 300; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.4s; }
+    nav.scrolled { background: rgba(61,48,24,0.94); backdrop-filter: blur(8px); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--stone); letter-spacing: 0.05em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: rgba(253,246,232,0.75); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--stone); }
+    .hero { position: relative; height: 100vh; min-height: 600px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: var(--deep); }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(122,158,95,0.4) 0%, transparent 60%), radial-gradient(ellipse at 75% 30%, rgba(196,98,45,0.3) 0%, transparent 55%), linear-gradient(180deg, #2a2208 0%, #3d3018 40%, #4a3c1a 100%); }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .hero-texture { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); opacity: 0.4; }
+    .hero-content { position: relative; text-align: center; color: var(--stone); padding: 2rem; }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--fog); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s ease 0.3s both; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(3rem, 8vw, 6.5rem); line-height: 1.0; margin-bottom: 0.4em; opacity: 0; animation: fadeUp 1s ease 0.5s both; }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--fog); margin-bottom: 3rem; opacity: 0; animation: fadeUp 1s ease 0.7s both; }
+    .hero-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid rgba(253,246,232,0.5); color: var(--stone); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; transition: all 0.3s; opacity: 0; animation: fadeUp 1s ease 0.9s both; }
+    .hero-cta:hover { background: rgba(253,246,232,0.12); border-color: var(--stone); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--fog); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; animation: fadeUp 1s ease 1.2s both; }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--fog), transparent); animation: scrollPulse 2s ease infinite; }
+    .carousel-section { background: var(--deep); position: relative; }
+    .carousel-wrap { position: relative; height: 520px; overflow: hidden; }
+    .carousel-track { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.77,0,0.175,1); }
+    .carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; display: block; background: #2a1e08; }
+    .carousel-slide-ph { width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:rgba(255,251,240,0.4);background:linear-gradient(135deg,#3d3018,#7a9e5f); }
+    .carousel-slide-ph svg { width:3rem;opacity:0.4; }
+    .carousel-slide-ph span { font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(61,48,24,0.6); border: 1px solid rgba(212,168,67,0.4); color: var(--gold); width: 48px; height: 48px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: background 0.2s; z-index: 10; backdrop-filter: blur(4px); }
+    .carousel-btn:hover { background: rgba(61,48,24,0.9); }
+    .carousel-btn.prev { left: 1.5rem; }
+    .carousel-btn.next { right: 1.5rem; }
+    .carousel-dots { position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(212,168,67,0.45); border: none; cursor: pointer; transition: background 0.2s, transform 0.2s; padding: 0; }
+    .carousel-dot.active { background: var(--gold); transform: scale(1.3); }
+    .carousel-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 3rem 3rem; background: linear-gradient(to top, rgba(42,32,16,0.75) 0%, transparent 100%); pointer-events:none; }
+    .carousel-caption-text { font-family: 'Cormorant Garamond', serif; font-style: italic; color: rgba(255,251,240,0.8); font-size: 1rem; }
+    section { padding: 6rem 2rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .container-wide { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brick); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--brick); opacity: 0.4; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.15; color: var(--deep); margin-bottom: 1.5rem; }
+    h2 em { font-style: italic; color: var(--brick); }
+    p { font-size: 1.05rem; line-height: 1.85; color: #3a3020; margin-bottom: 1.25rem; }
+    p:last-child { margin-bottom: 0; }
+    .island-section { background: var(--parchment); }
+    .island-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .island-photos { display: grid; grid-template-rows: 320px 200px; gap: 1rem; }
+    .photo-slot { width: 100%; background: var(--driftwood); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-ph { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;color:rgba(253,246,232,0.35); }
+    .photo-ph svg { width: 2.5rem; opacity: 0.5; }
+    .photo-ph span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .life-section { background: var(--stone); }
+    .life-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 3rem; }
+    .life-card { background: var(--parchment); padding: 2.5rem 2rem; border-top: 3px solid var(--orange); }
+    .life-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--deep); margin-bottom: 0.75rem; }
+    .life-card p { font-size: 0.92rem; line-height: 1.7; }
+    .life-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+    .role-section { background: var(--moss); color: var(--stone); }
+    .role-section h2 { color: var(--stone); }
+    .role-section h2 em { color: var(--gold); }
+    .role-section .section-label { color: var(--gold); }
+    .role-section .section-label::after { background: var(--gold); }
+    .role-section p { color: rgba(255,251,240,0.92); }
+    .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+    .role-list { list-style: none; }
+    .role-list li { padding: 0.75rem 0; border-bottom: 1px solid rgba(212,168,67,0.3); font-size: 0.95rem; color: rgba(255,251,240,0.92); line-height: 1.5; display: flex; gap: 1rem; align-items: flex-start; }
+    .role-list li::before { content: '\2014'; color: var(--amber); flex-shrink: 0; margin-top: 0.05em; }
+    .compensation-box { border: 1px solid rgba(212,168,67,0.4); padding: 2rem; margin-top: 2rem; }
+    .compensation-box h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--gold); margin-bottom: 1rem; }
+    .comp-item { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid rgba(212,168,67,0.25); font-size: 0.9rem; color: rgba(255,251,240,0.8); }
+    .comp-item:last-child { border-bottom: none; }
+    .comp-value { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--stone); }
+    .video-section { background: #3d3018; }
+    .video-section h2 { color: var(--stone); }
+    .video-section h2 em { color: var(--gold); }
+    .video-section .section-label { color: var(--gold); }
+    .video-section .section-label::after { background: var(--gold); }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .video-card { position: relative; background: #1e1608; overflow: hidden; cursor: pointer; }
+    .video-placeholder-box { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #3d3018, #7a9e5f); display: flex; align-items: center; justify-content: center; }
+    .video-placeholder-box span { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(212,168,67,0.5); }
+    .video-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; background: rgba(61,48,24,0.3); transition: background 0.3s; }
+    .video-card:hover .video-overlay { background: rgba(61,48,24,0.1); }
+    .play-btn { width: 60px; height: 60px; border-radius: 50%; background: rgba(212,168,67,0.9); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+    .play-btn:hover { transform: scale(1.1); background: var(--gold); }
+    .play-btn svg { width: 22px; height: 22px; fill: var(--deep); margin-left: 3px; }
+    .video-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,251,240,0.8); }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(42,32,16,0.95); align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { position: relative; width: 90vw; max-width: 960px; }
+    .lightbox-inner video { width: 100%; }
+    .lightbox-close { position: absolute; top: -2.5rem; right: 0; background: none; border: none; color: var(--fog); font-size: 1.8rem; cursor: pointer; line-height: 1; }
+    .lightbox-close:hover { color: var(--stone); }
+    .gallery-section { background: var(--parchment); }
+    .gallery-main { position: relative; height: 560px; overflow: hidden; background: var(--deep); margin-top: 2.5rem; }
+    .gallery-main-track { display: flex; height: 100%; transition: transform 0.6s cubic-bezier(0.77,0,0.175,1); }
+    .gallery-main-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+    .gallery-main-slide img { width: 100%; height: 100%; object-fit: contain; display: block; background: #2a1e08; }
+    .gallery-main-ph { width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:rgba(255,251,240,0.35);background:linear-gradient(135deg,#3d3018,#7a9e5f); }
+    .gallery-main-ph svg { width:3rem;opacity:0.4; }
+    .gallery-main-ph span { font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase; }
+    .gallery-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(61,48,24,0.65); border: 1px solid rgba(212,168,67,0.4); color: var(--gold); width: 48px; height: 48px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: background 0.2s; z-index: 10; backdrop-filter: blur(4px); }
+    .gallery-btn:hover { background: rgba(61,48,24,0.92); }
+    .gallery-btn.prev { left: 1.5rem; }
+    .gallery-btn.next { right: 1.5rem; }
+    .gallery-counter { position: absolute; top: 1.2rem; right: 1.5rem; font-size: 0.7rem; letter-spacing: 0.15em; color: rgba(255,251,240,0.65); z-index: 10; }
+    .gallery-thumbs { display: flex; gap: 6px; margin-top: 6px; overflow-x: auto; padding-bottom: 4px; scroll-behavior: smooth; }
+    .gallery-thumbs::-webkit-scrollbar { height: 4px; }
+    .gallery-thumbs::-webkit-scrollbar-track { background: var(--parchment); }
+    .gallery-thumbs::-webkit-scrollbar-thumb { background: var(--fog); }
+    .gallery-thumb { flex-shrink: 0; width: 90px; height: 60px; overflow: hidden; cursor: pointer; opacity: 0.55; transition: opacity 0.2s; border: 2px solid transparent; }
+    .gallery-thumb.active { opacity: 1; border-color: var(--orange); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-thumb-ph { width:100%;height:100%;background:linear-gradient(135deg,#7a9e5f,#3d3018);display:flex;align-items:center;justify-content:center;font-size:0.55rem;color:rgba(255,251,240,0.4);letter-spacing:0.15em;text-transform:uppercase; }
+    .apply-section { background: var(--parchment); }
+    .apply-intro { max-width: 620px; margin-bottom: 3.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brick); font-weight: 400; }
+    input, textarea, select { background: var(--stone); border: 1px solid var(--fog); padding: 0.85rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 300; color: var(--ink); transition: border-color 0.2s; outline: none; width: 100%; appearance: none; }
+    input:focus, textarea:focus, select:focus { border-color: var(--orange); }
+    textarea { resize: vertical; min-height: 130px; }
+    .form-divider { grid-column: 1 / -1; display: flex; align-items: center; gap: 1rem; margin: 1rem 0 0.5rem; color: var(--brick); font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; }
+    .form-divider::before, .form-divider::after { content: ''; flex: 1; height: 1px; background: var(--fog); }
+    .submit-btn { margin-top: 2rem; background: var(--brick); color: var(--stone); border: none; padding: 1rem 3rem; font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+    .submit-btn:hover { background: var(--deep); }
+    .form-note { margin-top: 1rem; font-size: 0.82rem; color: var(--earth); font-style: italic; }
+    footer { background: var(--deep); color: rgba(255,251,240,0.55); text-align: center; padding: 3rem 2rem; font-size: 0.78rem; letter-spacing: 0.1em; }
+    footer strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--gold); margin-bottom: 0.5rem; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.85; } }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-links { display: none; } section { padding: 4rem 1.5rem; }
+      .island-grid { grid-template-columns: 1fr; } .island-photos { display: none; }
+      .life-grid { grid-template-columns: 1fr; gap: 2px; } .role-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: 1; }
+      .carousel-wrap { height: 240px; } .gallery-main { height: 260px; } .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Prevost Island Farm &mdash; Now Hiring</a>
+  <ul class="nav-links">
+    <li><a href="#island">The Island</a></li>
+    <li><a href="#life">Island Life</a></li>
+    <li><a href="#role">The Role</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#apply">Apply</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <!--  Add your best photo: <img class="hero-photo" src="images/hero.jpg" alt="Prevost Island">  -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">Now Hiring &nbsp;&middot;&nbsp; Prevost Island &nbsp;&middot;&nbsp; Southern Gulf Islands, BC</p>
+    <h1>Farm Stewards<br><em>Wanted</em></h1>
+    <p class="hero-sub">A permanent position on a century-old island farm.<br>A life worth living.</p>
+    <a href="#apply" class="hero-cta">Apply Now</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- TOP CAROUSEL -->
+<div class="carousel-section">
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="topTrack"></div>
+    <button class="carousel-btn prev" id="topPrev">&#8592;</button>
+    <button class="carousel-btn next" id="topNext">&#8594;</button>
+    <div class="carousel-dots" id="topDots"></div>
+    <div class="carousel-caption"><span class="carousel-caption-text" id="topCaption"></span></div>
+  </div>
+</div>
+
+<!-- ISLAND -->
+<section class="island-section" id="island">
+  <div class="container-wide">
+    <div class="island-grid">
+      <div class="island-text reveal">
+        <p class="section-label">About the Island</p>
+        <h2>A wild &amp; <em>living</em> island</h2>
+        <p>Prevost is one of the smaller southern Gulf Islands &mdash; 1,600 acres of forest, field, and shoreline, with no ferry service, no public roads, and no through traffic. Access is by boat only, a twenty-minute crossing from Ganges on Salt Spring Island. The outside world stays outside.</p>
+        <p>First homesteaded in 1874, the land has been farmed by the de Burgh family since 1925 &mdash; three generations of quiet, committed stewardship. Much of the island remains wild: hundreds of acres of National Park land, miles of hiking trails, and over ten miles of rocky shoreline waiting to be explored by kayak. Herons fish the shallows. Eagles patrol the thermals. Seals haul out on the rocks below.</p>
+        <p>The farm's fields and the family's care sit at the heart of a largely undeveloped island. It is a peaceful haven &mdash; and for the right people, it will feel immediately, undeniably like home.</p>
+      </div>
+      <div class="island-photos reveal">
+        <div class="photo-slot" style="height:320px;">
+          <img src="images/IMG_5435.jpg" alt="Prevost Island" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div class="photo-slot" style="height:200px;">
+          <img src="images/IMG_1213.jpg" alt="Farm and shoreline" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ISLAND LIFE -->
+<section class="life-section" id="life">
+  <div class="container-wide">
+    <div class="reveal">
+      <p class="section-label">What to Expect</p>
+      <h2>Life on <em>the island</em></h2>
+    </div>
+    <div class="life-grid reveal">
+      <div class="life-card"><span class="life-icon">&#x1F411;</span><h3>The Animals</h3><p>The farm runs a flock of North Country Cheviot sheep and a Hereford cow-calf operation. The animals are central to everything &mdash; their welfare, their seasons, and their rhythms shape the farm year. Lambing and calving are the heartbeat of it all.</p></div>
+      <div class="life-card"><span class="life-icon">&#x1F33E;</span><h3>The Land</h3><p>Between 35 and 55 acres of hay are cut and made on the farm each year. Fields are ploughed and reseeded. Fences are built and maintained. The land is cared for as a living thing &mdash; because it is.</p></div>
+      <div class="life-card"><span class="life-icon">&#x26F5;</span><h3>The Water</h3><p>The dock is your gateway to the world &mdash; six miles from Ganges, twenty minutes by boat. Salt Spring has everything the farm and households need. The crossing itself, on a calm morning, is one of the finer commutes on earth.</p></div>
+      <div class="life-card"><span class="life-icon">&#x1F3E1;</span><h3>Your Home</h3><p>Accommodation is a small house at the head of a bay, on a low grassy bank with a big beach in front, facing Pender Island. Wood stove, solar power, propane shower, and all the quiet you could ever want. Simple, beautiful, and entirely your own.</p></div>
+      <div class="life-card"><span class="life-icon">&#x1F30A;</span><h3>The Wild</h3><p>Miles of trails wind through the National Park land. Kayaking the ten-mile shoreline reveals coves, cliffs, and creatures that most people never see. The island is wild in the best sense &mdash; and you will be part of it.</p></div>
+      <div class="life-card"><span class="life-icon">&#x1F331;</span><h3>Stewardship</h3><p>The de Burgh family is committed to caring for this land and its wildlife with the same dedication they bring to the farm. This is a philosophy of living well and leaving things better than you found them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLE -->
+<section class="role-section" id="role">
+  <div class="container-wide">
+    <div class="reveal">
+      <p class="section-label">The Position</p>
+      <h2>Work that <em>matters</em></h2>
+      <p>The farm needs two people &mdash; ideally a couple, both able and willing to work. Hours are flexible through most of the year, but at haying time, lambing, and calving, the work demands full presence and full commitment. This is honest, physical, deeply satisfying work in one of the most beautiful places in British Columbia.</p>
+      <p>The owners have farmed this island for three generations and are deeply committed to the land, the animals, and the quality of what they produce. They are looking for people who share that commitment &mdash; calm, grounded, and genuinely at home in a wild and working landscape.</p>
+    </div>
+    <div class="role-grid">
+      <div class="reveal">
+        <p style="font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(212,168,67,0.9);margin-bottom:1rem;">The work includes</p>
+        <ul class="role-list">
+          <li>Daily feeding and care of cattle and sheep, including at calving and lambing time</li>
+          <li>Vaccinating, deworming, and general veterinary care of the animals</li>
+          <li>Harvesting hay (35&ndash;55 acres cut and made on-farm each year)</li>
+          <li>Ploughing and reseeding fields</li>
+          <li>Building and repairing fences and gates</li>
+          <li>Maintaining farm buildings and infrastructure</li>
+          <li>Operating and maintaining farm machinery</li>
+          <li>Running a small on-farm sawmill for lumber</li>
+          <li>Cutting firewood and maintaining water systems</li>
+          <li>Yard and garden maintenance</li>
+          <li>Boat operation and dock maintenance</li>
+        </ul>
+        <div style="margin-top:2rem;">
+          <p style="font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(212,168,67,0.9);margin-bottom:1rem;">Who you are</p>
+          <ul class="role-list">
+            <li>Comfortable with livestock and genuinely fond of animals</li>
+            <li>Physically capable and at ease outdoors in all weather</li>
+            <li>Experienced with machinery operation and basic maintenance</li>
+            <li>Self-directed &mdash; you see what needs doing and you do it</li>
+            <li>Calm, grounded, reliable, and willing to learn</li>
+            <li>Content in an off-grid, boat-access-only lifestyle</li>
+            <li>Boating experience is a significant asset</li>
+            <li>Looking for a long-term home, not a short-term adventure</li>
+          </ul>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="compensation-box">
+          <h4>Compensation &amp; Conditions</h4>
+          <div class="comp-item"><span>Hourly wage</span><span class="comp-value">$23 / hour</span></div>
+          <div class="comp-item"><span>Hours (one person)</span><span class="comp-value">40 hrs / week</span></div>
+          <div class="comp-item"><span>Hours (couple, combined)</span><span class="comp-value">~65 hrs / week</span></div>
+          <div class="comp-item"><span>Accommodation</span><span class="comp-value">Rent-free (taxable benefit)</span></div>
+          <div class="comp-item"><span>Boat transport</span><span class="comp-value">Provided to Salt Spring &amp; Sidney</span></div>
+          <div class="comp-item"><span>Farm transport</span><span class="comp-value">Side-by-side ATV on-island</span></div>
+          <div class="comp-item"><span>Start date</span><span class="comp-value">As soon as possible</span></div>
+          <div class="comp-item"><span>Position type</span><span class="comp-value">Permanent (if the fit is right)</span></div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.5rem;border:1px solid rgba(212,168,67,0.35);">
+          <p style="font-size:0.82rem;color:rgba(255,251,240,0.88);font-style:italic;line-height:1.8;margin-bottom:0.75rem;">Your home is a small house at the head of a bay, on a low grassy bank with a big beach in front, facing Pender Island. It has a wood cook stove, wood heater, propane shower, and solar power with battery storage &mdash; enough for lights, a fridge, and the essentials.</p>
+          <p style="font-size:0.82rem;color:rgba(255,251,240,0.88);font-style:italic;line-height:1.8;">A summer trial position is possible while we seek a long-term match. We would rather take the time to find the right people than settle for the wrong fit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="video-section" id="videos">
+  <div class="container-wide">
+    <div class="reveal">
+      <p class="section-label">The Island in Motion</p>
+      <h2>See <em>the life</em></h2>
+      <p style="color:rgba(253,246,232,0.75);">A few glimpses of what daily life on Prevost looks like &mdash; the farm, the animals, the water, and the land.</p>
+    </div>
+    <div class="video-grid reveal" id="videoGrid"></div>
+  </div>
+</section>
+
+<div class="lightbox" id="videoLightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lbClose">&#x2715;</button>
+    <video id="lightboxVideo" controls playsinline></video>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="container-wide">
+    <div class="reveal">
+      <p class="section-label">Gallery</p>
+      <h2>Prevost <em>in pictures</em></h2>
+    </div>
+    <div class="gallery-main reveal">
+      <div class="gallery-main-track" id="galleryTrack"></div>
+      <button class="gallery-btn prev" id="galPrev">&#8592;</button>
+      <button class="gallery-btn next" id="galNext">&#8594;</button>
+      <div class="gallery-counter" id="galleryCounter"></div>
+    </div>
+    <div class="gallery-thumbs" id="galleryThumbs"></div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="apply-section" id="apply">
+  <div class="container">
+    <div class="apply-intro reveal">
+      <p class="section-label">Apply</p>
+      <h2>Tell us <em>about yourself</em></h2>
+      <p>If this sounds like the life you've been looking for, we'd genuinely love to hear from you. Please fill in the form below &mdash; tell us about your background, your experience with animals and machinery, and most importantly, what draws you to this kind of life. We're not looking for the longest CV. We're looking for the right people.</p>
+    </div>
+    <form id="applicationForm" class="reveal" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="568d9f6c-4d27-4090-aff1-98927c2e0ee5">
+      <input type="hidden" name="subject" value="New Application — Prevost Island Farm">
+      <input type="hidden" name="redirect" value="false">
+      <div class="form-grid">
+        <div class="form-divider">About You</div>
+        <div class="form-group"><label for="name1">Your Name</label><input type="text" id="name1" name="name1" placeholder="First and last name" required></div>
+        <div class="form-group"><label for="name2">Partner's Name</label><input type="text" id="name2" name="name2" placeholder="First and last name"></div>
+        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="your@email.com" required></div>
+        <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="(250) 000-0000"></div>
+        <div class="form-group"><label for="location">Where are you currently based?</label><input type="text" id="location" name="location" placeholder="City, Province"></div>
+        <div class="form-group"><label for="available">When could you start?</label><input type="text" id="available" name="available" placeholder="e.g. Immediately, September 2026&hellip;"></div>
+        <div class="form-divider">Your Background</div>
+        <div class="form-group full"><label for="farmExp">Farm or agricultural experience</label><textarea id="farmExp" name="farmExp" placeholder="Describe any experience with livestock (sheep, cattle, or other animals), farming, hay-making, or related work. Include how long, what animals, and what role you played&hellip;"></textarea></div>
+        <div class="form-group full"><label for="otherExp">Machinery &amp; practical skills</label><textarea id="otherExp" name="otherExp" placeholder="Tractor operation, machinery maintenance, fencing, carpentry, mechanics, sawmill operation, water systems &mdash; anything that might be useful on a working island farm&hellip;"></textarea></div>
+        <div class="form-group"><label for="boating">Boating experience?</label><select id="boating" name="boating"><option value="">Select&hellip;</option><option>Yes &mdash; comfortable operating boats</option><option>Some &mdash; basic experience</option><option>None &mdash; but willing to learn</option></select></div>
+        <div class="form-group"><label for="livestock">Experience with sheep or cattle?</label><select id="livestock" name="livestock"><option value="">Select&hellip;</option><option>Yes &mdash; hands-on experience with sheep and/or cattle</option><option>Some &mdash; limited exposure to livestock</option><option>Other farm animals, not sheep or cattle</option><option>None</option></select></div>
+        <div class="form-divider">Your Motivation</div>
+        <div class="form-group full"><label for="whyIsland">Why does this life appeal to you?</label><textarea id="whyIsland" name="whyIsland" style="min-height:160px" placeholder="This is the most important question. What draws you to remote island life, to working with animals, to living off-grid and close to the land? Tell us honestly &mdash; including any experience you have with rural or isolated living&hellip;" required></textarea></div>
+        <div class="form-group full"><label for="offgrid">Are you comfortable with off-grid living?</label><textarea id="offgrid" name="offgrid" placeholder="The house runs on solar power, wood heat, and propane. There is no road or ferry access &mdash; all travel on and off the island is by boat. Describe your experience with, or attitude toward, this kind of self-sufficient lifestyle&hellip;"></textarea></div>
+        <div class="form-group full"><label for="longTerm">Are you looking for a long-term commitment?</label><textarea id="longTerm" name="longTerm" placeholder="We want this island to become your home &mdash; ideally for many years. Tell us what long-term means to you and what would make this the right fit for your life as a couple&hellip;"></textarea></div>
+        <div class="form-group full"><label for="other">Anything else you'd like us to know?</label><textarea id="other" name="other" placeholder="References, questions, special circumstances, or anything else that feels relevant to your application&hellip;"></textarea></div>
+      </div>
+      <button type="submit" class="submit-btn">Submit Application</button>
+      <p class="form-note">We read every application carefully. You will hear back from us within two weeks.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <strong>Prevost Island Farm</strong>
+  <p>Southern Gulf Islands &nbsp;&middot;&nbsp; British Columbia, Canada</p>
+  <p style="margin-top:1rem">For enquiries: <a href="mailto:YOUR_EMAIL_HERE" style="color:rgba(212,168,67,0.9)">YOUR_EMAIL_HERE</a></p>
+</footer>
+
+<script>
+// ── FORM SUBMISSION ────────────────────────────────────────
+document.getElementById('applicationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var form = this;
+  var btn = form.querySelector('.submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: new FormData(form)
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
+      form.innerHTML =
+        '<div style="background:#3d3018;color:#fffbf0;padding:2.5rem;text-align:center;">' +
+        '<p style="font-family:Georgia,serif;font-size:2rem;font-weight:300;margin-bottom:0.5rem;color:#fdf8ee;">Thank you</p>' +
+        '<p style="color:rgba(255,251,240,0.88);font-size:1rem;">Your application has been received. We will be in touch within two weeks.</p>' +
+        '</div>';
+    } else {
+      btn.textContent = 'Submit Application';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or email us directly.');
+    }
+  })
+  .catch(function() {
+    btn.textContent = 'Submit Application';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again or email us directly.');
+  });
+});
+
+// ── CONFIGURATION ──────────────────────────────────────────
+// Update filenames/captions to match your actual photos.
+// Place files in an "images/" folder next to index.html on Netlify.
+
+const photos = [
+  { src:'images/3_lambs.jpg',              caption:'Three lambs — new life on the farm' },
+  { src:'images/3_lambs_with_bottles.jpg', caption:'Bottle-feeding time' },
+  { src:'images/daffodils.jpg',            caption:'Spring arrives on Prevost' },
+  { src:'images/fields.jpg',               caption:'The farm fields' },
+  { src:'images/farm_scene_road.jpg',      caption:'A quiet farm road' },
+  { src:'images/wood_pile.jpg',            caption:'Firewood — warmth for the winter' },
+  { src:'images/IMG_4302.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_4304.jpg',             caption:'Island scenery' },
+  { src:'images/IMG_4315.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_5435.jpg',             caption:'On the farm' },
+  { src:'images/IMG_5445.jpg',             caption:'Island life' },
+  { src:'images/IMG_5446.jpg',             caption:'The land' },
+  { src:'images/IMG_5454.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_6535.jpg',             caption:'The shoreline' },
+  { src:'images/IMG_7066.jpg',             caption:'Island views' },
+  { src:'images/IMG_7069.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_9255.jpg',             caption:'The farm' },
+  { src:'images/IMG_9265.jpg',             caption:'Island scenery' },
+  { src:'images/IMG_9288.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_1213.jpg',             caption:'On the water' },
+  { src:'images/IMG_1431.jpg',             caption:'The island' },
+  { src:'images/IMG_1433.jpg',             caption:'Farm life' },
+  { src:'images/IMG_1437.jpg',             caption:'Prevost Island' },
+  { src:'images/IMG_1441.jpg',             caption:'The land and sea' },
+  { src:'images/IMG_1444.jpg',             caption:'Evening on Prevost' },
+];
+
+// Top carousel uses first 6 photos
+const topPhotos = [
+  { src:'images/IMG_1437.jpg', caption:'Prevost Island' },
+  { src:'images/IMG_4315.jpg', caption:'Prevost Island' },
+  { src:'images/IMG_9255.jpg', caption:'The farm' },
+  { src:'images/IMG_7069.jpg', caption:'Prevost Island' },
+  { src:'images/IMG_9288.jpg', caption:'Prevost Island' },
+  { src:'images/IMG_5454.jpg', caption:'Prevost Island' },
+  { src:'images/fields.jpg',   caption:'The farm fields' },
+];
+
+// Place video files in a "videos/" folder next to index.html.
+const videos = [
+  { src:'videos/farm_scenary.mp4',  label:'The Farm',          thumb:'videos/farm_scenary_thumb.jpg' },
+  { src:'videos/haying.mp4',        label:'Haying Season',     thumb:'videos/haying_thumb.jpg' },
+  { src:'videos/lamb_feeding.mp4',  label:'Lamb Feeding Time', thumb:'videos/lamb_feeding_thumb.jpg' },
+  { src:'videos/more_lambs.mp4',    label:'More Lambs',        thumb:'videos/more_lambs_thumb.jpg' },
+  { src:'videos/sheep_running.mp4', label:'The Flock',         thumb:'videos/sheep_running_thumb.jpg' },
+  { src:'videos/cabin_beach.mp4',   label:'The Cabin & Beach', thumb:'videos/cabin_beach_thumb.jpg' },
+  { src:'videos/cute_lambs.mp4',    label:'Cute Lambs',        thumb:'videos/cute_lambs_thumb.jpg' },
+];
+
+// ── TOP CAROUSEL ───────────────────────────────────────────
+(function(){
+  const track = document.getElementById('topTrack');
+  const dotsEl = document.getElementById('topDots');
+  const capEl  = document.getElementById('topCaption');
+  let cur = 0, timer;
+
+  topPhotos.forEach(function(p, i){
+    var slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    var img = document.createElement('img');
+    img.src = p.src; img.alt = p.caption;
+    img.onerror = function(){
+      slide.innerHTML = '<div class="carousel-slide-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>'+p.caption+'</span></div>';
+    };
+    slide.appendChild(img);
+    track.appendChild(slide);
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i===0?' active':'');
+    dot.addEventListener('click', function(){ go(i); });
+    dotsEl.appendChild(dot);
+  });
+
+  function update(){
+    track.style.transform = 'translateX(-'+(cur*100)+'%)';
+    dotsEl.querySelectorAll('.carousel-dot').forEach(function(d,i){ d.classList.toggle('active', i===cur); });
+    capEl.textContent = topPhotos[cur] ? topPhotos[cur].caption : '';
+  }
+  function go(n){ cur=n; update(); reset(); }
+  function next(){ go((cur+1)%topPhotos.length); }
+  function prev(){ go((cur-1+topPhotos.length)%topPhotos.length); }
+  function reset(){ clearInterval(timer); timer=setInterval(next,5000); }
+
+  document.getElementById('topNext').addEventListener('click', next);
+  document.getElementById('topPrev').addEventListener('click', prev);
+  update(); reset();
+})();
+
+// ── VIDEO SECTION ──────────────────────────────────────────
+(function(){
+  var grid = document.getElementById('videoGrid');
+  videos.forEach(function(v){
+    var card = document.createElement('div');
+    card.className = 'video-card';
+    var thumbHtml = v.thumb
+      ? '<img src="'+v.thumb+'" alt="'+v.label+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">'
+      : '<div class="video-placeholder-box"><span>'+v.label+'</span></div>';
+    card.innerHTML =
+      thumbHtml+
+      '<div class="video-overlay">'+
+        '<button class="play-btn" aria-label="Play '+v.label+'">'+
+          '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>'+
+        '</button>'+
+        '<span class="video-label">'+v.label+'</span>'+
+      '</div>';
+    card.querySelector('.play-btn').addEventListener('click', function(){ openLightbox(v.src); });
+    grid.appendChild(card);
+  });
+})();
+
+function openLightbox(src){
+  var lb = document.getElementById('videoLightbox');
+  var vid = document.getElementById('lightboxVideo');
+  vid.src = src;
+  lb.classList.add('open');
+  vid.play().catch(function(){});
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  var lb = document.getElementById('videoLightbox');
+  var vid = document.getElementById('lightboxVideo');
+  vid.pause(); vid.src = '';
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('videoLightbox').addEventListener('click', function(e){ if(e.target===this) closeLightbox(); });
+
+// ── GALLERY ────────────────────────────────────────────────
+(function(){
+  var track   = document.getElementById('galleryTrack');
+  var thumbsEl= document.getElementById('galleryThumbs');
+  var counter = document.getElementById('galleryCounter');
+  var cur = 0;
+
+  photos.forEach(function(p, i){
+    var slide = document.createElement('div');
+    slide.className = 'gallery-main-slide';
+    var img = document.createElement('img');
+    img.src = p.src; img.alt = p.caption;
+    img.onerror = function(){
+      slide.innerHTML = '<div class="gallery-main-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>'+p.caption+'</span></div>';
+    };
+    slide.appendChild(img);
+    track.appendChild(slide);
+
+    var thumb = document.createElement('div');
+    thumb.className = 'gallery-thumb' + (i===0?' active':'');
+    var timg = document.createElement('img');
+    timg.src = p.src; timg.alt = p.caption;
+    timg.onerror = function(){ thumb.innerHTML='<div class="gallery-thumb-ph">'+(i+1)+'</div>'; };
+    thumb.appendChild(timg);
+    thumb.addEventListener('click', function(){ go(i); });
+    thumbsEl.appendChild(thumb);
+  });
+
+  function update(){
+    track.style.transform = 'translateX(-'+(cur*100)+'%)';
+    counter.textContent = (cur+1)+' / '+photos.length;
+    thumbsEl.querySelectorAll('.gallery-thumb').forEach(function(t,i){ t.classList.toggle('active', i===cur); });
+    var active = thumbsEl.children[cur];
+    if(active) active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  }
+  function go(n){ cur=n; update(); }
+  function next(){ go((cur+1)%photos.length); }
+  function prev(){ go((cur-1+photos.length)%photos.length); }
+
+  document.getElementById('galNext').addEventListener('click', next);
+  document.getElementById('galPrev').addEventListener('click', prev);
+  update();
+
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById('videoLightbox').classList.contains('open')){
+      if(e.key==='Escape') closeLightbox(); return;
+    }
+    if(e.key==='ArrowRight') next();
+    if(e.key==='ArrowLeft') prev();
+  });
+})();
+
+// ── NAV + SCROLL REVEAL ────────────────────────────────────
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY>60); });
+
+var revealEls = document.querySelectorAll('.reveal');
+var ro = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry, i){
+    if(entry.isIntersecting){
+      setTimeout(function(){ entry.target.classList.add('visible'); }, i*80);
+      ro.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.1});
+revealEls.forEach(function(el){ ro.observe(el); });
+</script>
+
+</body>
+</html>
