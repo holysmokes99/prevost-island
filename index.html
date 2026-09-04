@@ -10,8 +10,8 @@
   <meta property="og:title" content="Prevost Island Farm — Farm Stewards Wanted" />
   <meta property="og:description" content="A permanent position on a century-old island farm in the southern Gulf Islands, BC. We are looking for a couple to help steward a remarkable private island." />
   <meta property="og:image" content="https://prevostislandfarm.ca/images/IMG_9265.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:width" content="1920" />
+  <meta property="og:image:height" content="1440" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Prevost Island Farm — Farm Stewards Wanted" />
   <meta name="twitter:description" content="A permanent position on a century-old island farm in the southern Gulf Islands, BC." />
@@ -246,10 +246,10 @@
       </div>
       <div class="island-photos reveal">
         <div class="photo-slot" style="height:320px;">
-          <img src="images/IMG_5435.jpg" alt="Prevost Island" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="images/IMG_5435.webp" alt="Prevost Island" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="photo-slot" style="height:200px;">
-          <img src="images/IMG_1213.jpg" alt="Farm and shoreline" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="images/IMG_1213.webp" alt="Farm and shoreline" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
     </div>
@@ -457,57 +457,57 @@ document.getElementById('applicationForm').addEventListener('submit', function(e
 // Place files in an "images/" folder next to index.html on Netlify.
 
 const photos = [
-  { src:'images/3_lambs.jpg',              caption:'Three lambs — new life on the farm' },
-  { src:'images/3_lambs_with_bottles.jpg', caption:'Bottle-feeding time' },
-  { src:'images/daffodils.jpg',            caption:'Spring arrives on Prevost' },
-  { src:'images/fields.jpg',               caption:'The farm fields' },
-  { src:'images/farm_scene_road.jpg',      caption:'A quiet farm road' },
-  { src:'images/wood_pile.jpg',            caption:'Firewood — warmth for the winter' },
-  { src:'images/IMG_4302.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_4304.jpg',             caption:'Island scenery' },
-  { src:'images/IMG_4315.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_5435.jpg',             caption:'On the farm' },
-  { src:'images/IMG_5445.jpg',             caption:'Island life' },
-  { src:'images/IMG_5446.jpg',             caption:'The land' },
-  { src:'images/IMG_5454.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_6535.jpg',             caption:'The shoreline' },
-  { src:'images/IMG_7066.jpg',             caption:'Island views' },
-  { src:'images/IMG_7069.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_9255.jpg',             caption:'The farm' },
-  { src:'images/IMG_9265.jpg',             caption:'Island scenery' },
-  { src:'images/IMG_9288.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_1213.jpg',             caption:'On the water' },
-  { src:'images/IMG_1431.jpg',             caption:'The island' },
-  { src:'images/IMG_1433.jpg',             caption:'Farm life' },
-  { src:'images/IMG_1437.jpg',             caption:'Prevost Island' },
-  { src:'images/IMG_1441.jpg',             caption:'The land and sea' },
-  { src:'images/IMG_1444.jpg',             caption:'Evening on Prevost' },
-  { src:'images/big_field.jpg',            caption:'The farm fields' },
-  { src:'images/On_top_of_hay_wagon.jpg',  caption:'Hay wagon' },
-  { src:'images/Cows_on_road.jpg',         caption:'Cattle on the move' },
-  { src:'images/donkey.jpg',               caption:'A familiar face' },
+  { src:'images/3_lambs.webp',              caption:'Three lambs — new life on the farm' },
+  { src:'images/3_lambs_with_bottles.webp', caption:'Bottle-feeding time' },
+  { src:'images/daffodils.webp',            caption:'Spring arrives on Prevost' },
+  { src:'images/fields.webp',               caption:'The farm fields' },
+  { src:'images/farm_scene_road.webp',      caption:'A quiet farm road' },
+  { src:'images/wood_pile.webp',            caption:'Firewood — warmth for the winter' },
+  { src:'images/IMG_4302.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_4304.webp',             caption:'Island scenery' },
+  { src:'images/IMG_4315.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_5435.webp',             caption:'On the farm' },
+  { src:'images/IMG_5445.webp',             caption:'Island life' },
+  { src:'images/IMG_5446.webp',             caption:'The land' },
+  { src:'images/IMG_5454.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_6535.webp',             caption:'The shoreline' },
+  { src:'images/IMG_7066.webp',             caption:'Island views' },
+  { src:'images/IMG_7069.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_9255.webp',             caption:'The farm' },
+  { src:'images/IMG_9265.webp',             caption:'Island scenery' },
+  { src:'images/IMG_9288.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_1213.webp',             caption:'On the water' },
+  { src:'images/IMG_1431.webp',             caption:'The island' },
+  { src:'images/IMG_1433.webp',             caption:'Farm life' },
+  { src:'images/IMG_1437.webp',             caption:'Prevost Island' },
+  { src:'images/IMG_1441.webp',             caption:'The land and sea' },
+  { src:'images/IMG_1444.webp',             caption:'Evening on Prevost' },
+  { src:'images/big_field.webp',            caption:'The farm fields' },
+  { src:'images/On_top_of_hay_wagon.webp',  caption:'Hay wagon' },
+  { src:'images/Cows_on_road.webp',         caption:'Cattle on the move' },
+  { src:'images/donkey.webp',               caption:'A familiar face' },
 ];
 
 // Top carousel uses first 6 photos
 const topPhotos = [
-  { src:'images/IMG_1437.jpg', caption:'Prevost Island' },
-  { src:'images/IMG_4315.jpg', caption:'Prevost Island' },
-  { src:'images/IMG_9255.jpg', caption:'The farm' },
-  { src:'images/IMG_7069.jpg', caption:'Prevost Island' },
-  { src:'images/IMG_9288.jpg', caption:'Prevost Island' },
-  { src:'images/IMG_5454.jpg', caption:'Prevost Island' },
-  { src:'images/fields.jpg',   caption:'The farm fields' },
+  { src:'images/IMG_1437.webp', caption:'Prevost Island' },
+  { src:'images/IMG_4315.webp', caption:'Prevost Island' },
+  { src:'images/IMG_9255.webp', caption:'The farm' },
+  { src:'images/IMG_7069.webp', caption:'Prevost Island' },
+  { src:'images/IMG_9288.webp', caption:'Prevost Island' },
+  { src:'images/IMG_5454.webp', caption:'Prevost Island' },
+  { src:'images/fields.webp',   caption:'The farm fields' },
 ];
 
 // Place video files in a "videos/" folder next to index.html.
 const videos = [
-  { src:'videos/farm_scenary.mp4',  label:'The Farm',          thumb:'videos/farm_scenary_thumb.jpg' },
-  { src:'videos/haying.mp4',        label:'Haying Season',     thumb:'videos/haying_thumb.jpg' },
-  { src:'videos/lamb_feeding.mp4',  label:'Lamb Feeding Time', thumb:'videos/lamb_feeding_thumb.jpg' },
-  { src:'videos/more_lambs.mp4',    label:'More Lambs',        thumb:'videos/more_lambs_thumb.jpg' },
-  { src:'videos/sheep_running.mp4', label:'The Flock',         thumb:'videos/sheep_running_thumb.jpg' },
-  { src:'videos/cabin_beach.mp4',   label:'The Cabin & Beach', thumb:'videos/cabin_beach_thumb.jpg' },
-  { src:'videos/cute_lambs.mp4',    label:'Cute Lambs',        thumb:'videos/cute_lambs_thumb.jpg' },
+  { src:'videos/farm_scenary.mp4',  label:'The Farm',          thumb:'videos/farm_scenary_thumb.webp' },
+  { src:'videos/haying.mp4',        label:'Haying Season',     thumb:'videos/haying_thumb.webp' },
+  { src:'videos/lamb_feeding.mp4',  label:'Lamb Feeding Time', thumb:'videos/lamb_feeding_thumb.webp' },
+  { src:'videos/more_lambs.mp4',    label:'More Lambs',        thumb:'videos/more_lambs_thumb.webp' },
+  { src:'videos/sheep_running.mp4', label:'The Flock',         thumb:'videos/sheep_running_thumb.webp' },
+  { src:'videos/cabin_beach.mp4',   label:'The Cabin & Beach', thumb:'videos/cabin_beach_thumb.webp' },
+  { src:'videos/cute_lambs.mp4',    label:'Cute Lambs',        thumb:'videos/cute_lambs_thumb.webp' },
 ];
 
 // ── TOP CAROUSEL ───────────────────────────────────────────
@@ -525,6 +525,9 @@ setTimeout(function() { window.scrollTo(0,0); }, 500);
     slide.className = 'carousel-slide';
     var img = document.createElement('img');
     img.src = p.src; img.alt = p.caption;
+    img.loading = i === 0 ? 'eager' : 'lazy';
+    img.decoding = 'async';
+    if (i === 0) img.fetchPriority = 'high';
     img.onerror = function(){
       slide.innerHTML = '<div class="carousel-slide-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>'+p.caption+'</span></div>';
     };
@@ -558,7 +561,7 @@ setTimeout(function() { window.scrollTo(0,0); }, 500);
     var card = document.createElement('div');
     card.className = 'video-card';
     var thumbHtml = v.thumb
-      ? '<img src="'+v.thumb+'" alt="'+v.label+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">'
+      ? '<img src="'+v.thumb+'" alt="'+v.label+'" loading="lazy" decoding="async" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">'
       : '<div class="video-placeholder-box"><span>'+v.label+'</span></div>';
     card.innerHTML =
       thumbHtml+
@@ -603,6 +606,8 @@ document.getElementById('videoLightbox').addEventListener('click', function(e){ 
     slide.className = 'gallery-main-slide';
     var img = document.createElement('img');
     img.src = p.src; img.alt = p.caption;
+    img.loading = 'lazy';
+    img.decoding = 'async';
     img.onerror = function(){
       slide.innerHTML = '<div class="gallery-main-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>'+p.caption+'</span></div>';
     };
@@ -613,6 +618,8 @@ document.getElementById('videoLightbox').addEventListener('click', function(e){ 
     thumb.className = 'gallery-thumb' + (i===0?' active':'');
     var timg = document.createElement('img');
     timg.src = p.src; timg.alt = p.caption;
+    timg.loading = 'lazy';
+    timg.decoding = 'async';
     timg.onerror = function(){ thumb.innerHTML='<div class="gallery-thumb-ph">'+(i+1)+'</div>'; };
     thumb.appendChild(timg);
     thumb.addEventListener('click', function(){ go(i); });
