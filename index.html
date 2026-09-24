@@ -181,6 +181,17 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    /* ── POSITION FILLED MODAL ── */
+    .pf-overlay { display:none; position:fixed; inset:0; z-index:2000; background:rgba(42,32,16,0.82); align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+    .pf-overlay.open { display:flex; }
+    .pf-box { background:var(--stone); max-width:520px; width:90%; padding:3rem 2.5rem; text-align:center; position:relative; animation:fadeUp 0.5s ease both; }
+    .pf-icon { font-size:2.5rem; margin-bottom:1rem; display:block; }
+    .pf-box h2 { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:2rem; color:var(--deep); margin-bottom:1rem; }
+    .pf-box p { font-size:0.98rem; line-height:1.8; color:#3a3020; margin-bottom:1.75rem; }
+    .pf-close { background:var(--brick); color:var(--stone); border:none; padding:0.75rem 2rem; font-family:'Jost',sans-serif; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:background 0.2s; }
+    .pf-close:hover { background:var(--deep); }
+    .pf-dismiss { display:block; margin-top:1rem; font-size:0.78rem; color:var(--earth); cursor:pointer; text-decoration:underline; text-underline-offset:3px; background:none; border:none; font-family:'Jost',sans-serif; }
+    .pf-dismiss:hover { color:var(--brick); }
     @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.85; } }
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; } .nav-links { display: none; } section { padding: 4rem 1.5rem; }
@@ -412,11 +423,62 @@
   <p>Southern Gulf Islands &nbsp;&middot;&nbsp; British Columbia, Canada</p>
   <p style="margin-top:1rem">For enquiries &mdash; Email: <a href="mailto:islandofsheep@yahoo.ca" style="color:rgba(212,168,67,0.9)">islandofsheep@yahoo.ca</a></p>
 </footer>
+
 <div style="text-align:center;padding:0.75rem;background:var(--ink);font-family:'Jost',sans-serif;font-size:0.72rem;color:rgba(253,248,238,0.3);letter-spacing:0.1em;">
   Last updated: <span id="lastUpdated"></span>
 </div>
 <script>
-  document.getElementById('lastUpdated').textContent = 'September 11, 2026 · 1:17 PM PT';
+  document.getElementById('lastUpdated').textContent = 'September 23, 2026 · 10:09 PM PT';
+</script>
+
+<!-- ── POSITION FILLED MODAL ── -->
+<div class="pf-overlay" id="pfOverlay">
+  <div class="pf-box">
+    <span class="pf-icon">🐑</span>
+    <h2>Position <em>Filled</em></h2>
+    <p>This position has now been filled. We had wonderful responses and are grateful to everyone who expressed interest in life on Prevost Island.<br><br>This page may be reactivated in the future if circumstances change.</p>
+    <button class="pf-close" onclick="closePfModal()">Close</button>
+    <button class="pf-dismiss" onclick="closePfModal()">Dismiss and browse the site</button>
+  </div>
+</div>
+
+<script>
+// ── POSITION FILLED MODAL ──────────────────────────────────
+// To re-enable the site: change POSITION_FILLED to false
+var POSITION_FILLED = true;
+
+function openPfModal() {
+  document.getElementById('pfOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePfModal() {
+  document.getElementById('pfOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on overlay background click
+document.getElementById('pfOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closePfModal();
+});
+// Show on page load
+if (POSITION_FILLED) {
+  window.addEventListener('load', function() {
+    setTimeout(openPfModal, 800);
+  });
+}
+// Intercept Apply Now button
+var heroBtn = document.querySelector('.hero-cta');
+if (heroBtn) {
+  heroBtn.addEventListener('click', function(e) {
+    if (POSITION_FILLED) { e.preventDefault(); openPfModal(); }
+  });
+}
+// Intercept Submit Application button
+var submitBtn = document.querySelector('.submit-btn');
+if (submitBtn) {
+  submitBtn.addEventListener('click', function(e) {
+    if (POSITION_FILLED) { e.preventDefault(); openPfModal(); }
+  });
+}
 </script>
 
 <script>
